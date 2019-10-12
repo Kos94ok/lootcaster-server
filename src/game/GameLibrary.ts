@@ -1,4 +1,4 @@
-// @flow
+
 import Game from './Game'
 import Player from '../database/Player'
 

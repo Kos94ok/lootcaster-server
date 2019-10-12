@@ -1,13 +1,13 @@
-// @flow
+
 import Player from '../database/Player'
 
 export default class PlayerMessage {
+	id: string
 	username: string
-	uniqueToken: string
 
 	constructor(player: Player) {
+		this.id = player.id
 		this.username = player.username
-		this.uniqueToken = player.uniqueToken
 	}
 
 	static fromPlayer(player: Player): PlayerMessage {

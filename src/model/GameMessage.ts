@@ -1,4 +1,4 @@
-// @flow
+
 import Game from '../game/Game'
 
 export default class GameMessage {

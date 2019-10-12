@@ -1,9 +1,9 @@
-// @flow
+
 import express from 'express'
 const router = express.Router()
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
 	const games = global.gameLibrary.games
 
 	const params = {

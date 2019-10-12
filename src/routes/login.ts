@@ -1,14 +1,14 @@
-// @flow
-import express from 'express'
+import express, { Response } from 'express'
 const router = express.Router()
 
 import Game from '../game/Game'
 import GameMessage from '../model/GameMessage'
+import Player from '../database/Player'
 import PlayerMessage from '../model/PlayerMessage'
 
-router.use((req, res, next) => {
-	const username = req.params['username']
-	const password = req.params['password']
+router.use((req, res: Response, next) => {
+	const username = req.body['username']
+	const password = req.body['password']
 	if (!username || !password) {
 		res.json({ error: 'Missing username or password' })
 		return
@@ -20,13 +20,14 @@ router.use((req, res, next) => {
 		return
 	}
 
-	req.player = player
+	req['player'] = player
 	next()
 })
 
-router.get('/', (req, res, next) => {
-	const player = req.player
-	const playerMessage = PlayerMessage.fromPlayer(player)
+router.post('/', (req, res: Response, next) => {
+	const player: Player = req['player']
+	res.cookie('playerToken', player.uniqueToken, { maxAge: 900000, httpOnly: true })
+	res.json(PlayerMessage.fromPlayer(player))
 })
 
 module.exports = router

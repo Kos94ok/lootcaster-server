@@ -1,4 +1,4 @@
-// @flow
+
 import Player from './Player'
 
 export default class PlayerLibrary {
@@ -8,7 +8,7 @@ export default class PlayerLibrary {
 		this.players = []
 	}
 
-	register(username: string, password: string) : Player {
+	register(username: string, password: string): Player {
 		// TODO: Hash the password please
 		const passwordHash = '$1' + password
 		const player = Player.newInstance(username, passwordHash)
@@ -16,21 +16,23 @@ export default class PlayerLibrary {
 		return player
 	}
 
-	getPlayerByUsername(username: string, password: string) : Player {
+	getPlayerByUsername(username: string, password: string): Player {
 		const player = this.players.find(player => player.username === username)
 		if (!player) {
+			console.log('No player')
 			return null
 		}
 
 		const passwordHash = '$1' + password
 		if (player.passwordHash !== passwordHash) {
+			console.log('Bad password')
 			return null
 		}
 
 		return player
 	}
 
-	getPlayerByToken(token: string) : Player {
+	getPlayerByToken(token: string): Player {
 		return this.players.find(player => player.uniqueToken === token)
 	}
 }
