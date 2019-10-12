@@ -3,7 +3,7 @@
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
-		"build": "babel src/ -d dist/ --extensions .ts",
+		"build": "babel src/ -d dist/ --extensions .ts --copy-files",
 		"start": "node dist/app.js",
 		"serve": "babel-watch src/app.ts -w src --extensions .ts",
 		"watch": "babel --watch src --out-dir dist --extensions .ts,.tsx"

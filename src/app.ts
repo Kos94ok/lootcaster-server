@@ -60,4 +60,4 @@ app.use((err, req, res, next) => {
 global.gameLibrary = new GameLibrary()
 global.playerLibrary = new PlayerLibrary()
 
-app.listen(80)
+app.listen((process.env.PORT || 3000))
