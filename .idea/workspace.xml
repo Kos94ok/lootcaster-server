@@ -2,37 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67b9f0fd-3143-4ebb-be8b-88eadb94da25" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Tianara.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/server.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/database/PlayerWebSocket.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/game/ChatEntry.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/ChatEntryMessage.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/PublicPlayerMessage.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/gamesWebsocket.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/global.t.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flowconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/database/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/Player.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/database/PlayerDatabase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/PlayerDatabase.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Game.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/GameLibrary.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GameLibrary.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/GameMessage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/GameMessage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/PlayerMessage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/PlayerMessage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/game.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/gamebrowser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/games.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/login.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/register.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -92,7 +63,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1570889744973</updated>
-      <workItem from="1570889746053" duration="16627000" />
+      <workItem from="1570889746053" duration="16858000" />
     </task>
     <servers />
   </component>
