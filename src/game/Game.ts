@@ -1,7 +1,8 @@
 
 import uuidv4 from 'uuid/v4'
-import Player from '../database/Player'
 import ChatEntry from './ChatEntry'
+import Player from '../database/Player'
+import OutgoingMessageHandlers from '../handlers/OutgoingMessageHandlers'
 
 export default class Game {
 	id: string
@@ -19,7 +20,7 @@ export default class Game {
 	addPlayer(targetPlayer: Player): void {
 		if (this.players.includes(targetPlayer)) { return }
 
-		this.players.forEach((player) => player.webSocket.notifyAboutPlayerConnected(targetPlayer))
+		this.players.forEach((player) => OutgoingMessageHandlers.notifyAboutPlayerConnected(player, targetPlayer))
 		this.players.push(targetPlayer)
 	}
 
@@ -27,13 +28,13 @@ export default class Game {
 		if (!this.players.includes(targetPlayer)) { return }
 
 		this.players.splice(this.players.indexOf(targetPlayer), 1)
-		this.players.forEach((player) => player.webSocket.notifyAboutPlayerDisconnected(targetPlayer))
+		this.players.forEach((player) => OutgoingMessageHandlers.notifyAboutPlayerDisconnected(player, targetPlayer))
 	}
 
 	createChatEntry(sender: Player, message: string): void {
 		const chatEntry = ChatEntry.newInstance(sender, message)
 		this.chatHistory.push(chatEntry)
-		this.players.forEach((player) => player.webSocket.notifyAboutChatEntry(chatEntry))
+		this.players.forEach((player) => OutgoingMessageHandlers.notifyAboutChatEntry(player, chatEntry))
 	}
 
 	static newPublicInstance(): Game {

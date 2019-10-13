@@ -1,19 +1,14 @@
 import * as ws from 'ws'
-import uuidv4 from 'uuid/v4'
 import PlayerWebSocket from './PlayerWebSocket'
 
 export default class Player {
 	id: string
 	username: string
-	passwordHash: string
-	uniqueToken: string
 	webSocket: PlayerWebSocket
 
-	constructor(username: string, passwordHash: string) {
-		this.id = uuidv4()
+	constructor(id: string, username: string) {
+		this.id = id
 		this.username = username
-		this.passwordHash = passwordHash
-		this.uniqueToken = uuidv4()
 		this.webSocket = null
 	}
 
@@ -25,11 +20,19 @@ export default class Player {
 		this.webSocket = null
 	}
 
+	sendMessage(json: { type: string, data: any }): void {
+		if (!this.webSocket) {
+			console.warn('Trying to send message to disconnected player')
+			return
+		}
+		this.webSocket.send(json)
+	}
+
 	isInGame(): boolean {
 		return !!this.webSocket
 	}
 
-	static newInstance(username: string, passwordHash: string): Player {
-		return new Player(username, passwordHash)
+	static newInstance(playerDatabaseEntry: PlayerDatabaseEntry): Player {
+		return new Player(playerDatabaseEntry.id, playerDatabaseEntry.username)
 	}
 }

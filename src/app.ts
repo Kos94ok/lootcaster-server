@@ -1,3 +1,5 @@
+require('babel-polyfill')
+
 import path from 'path'
 import logger from 'morgan'
 import cookieParser from 'cookie-parser'
@@ -5,23 +7,30 @@ import cookieParser from 'cookie-parser'
 import express, {Request, Response} from 'express'
 import expressWs from 'express-ws'
 
+import Database from './database/Database'
 import GameLibrary from './game/GameLibrary'
-import PlayerLibrary from './database/PlayerDatabase'
+import PlayerLibrary from './database/PlayerLibrary'
 
 const app = express()
 expressWs(app)
 
 /* Routers must be imported after express-ws is initialized, therefore 'require' syntax */
-const indexRouter = require('./pages')
-const registerRouter = require('./routes/register')
-const loginRouter = require('./routes/login')
-const gamesRouter = require('./routes/games')
-const gamesWebsocketRouter = require('./routes/gamesWebsocket')
+const PlayRouter = require('./routes/PlayRouter')
+const IndexRouter = require('./routes/IndexRouter')
+const LoginRouter = require('./routes/LoginRouter')
+const GamesRouter = require('./routes/GamesRouter')
+const LogoutRouter = require('./routes/LogoutRouter')
+const ProfileRouter = require('./routes/ProfileRouter')
+const RegisterRouter = require('./routes/RegisterRouter')
 
 /* Templating engine */
-app.set('views', path.join(__dirname, 'pages/views'))
+app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
 
+/* Stuff */
+
+
+/* Random middleware */
 app.use(logger('dev'))
 app.use(cookieParser())
 app.use(express.json())
@@ -38,14 +47,26 @@ app.use(function (req: Request, res: Response, next) {
 	next()
 })
 
+/* OPTIONS request */
+app.use((req: Request, res: Response, next) => {
+	if (req.method === 'OPTIONS') {
+		res.status(200)
+		res.json(JSON.stringify({}))
+	} else {
+		next()
+	}
+})
+
 /* HTTP routers */
-app.use('/', indexRouter)
-app.use('/register', registerRouter)
-app.use('/login', loginRouter)
-app.use('/games', gamesRouter)
+app.use('/', IndexRouter)
+app.use('/games', GamesRouter)
+app.use('/login', LoginRouter)
+app.use('/logout', LogoutRouter)
+app.use('/profile', ProfileRouter)
+app.use('/register', RegisterRouter)
 
 /* WS routers */
-app.use('/play', gamesWebsocketRouter)
+app.use('/play', PlayRouter)
 
 /* Global error handler */
 app.use((err, req, res, next) => {
@@ -57,6 +78,7 @@ app.use((err, req, res, next) => {
 })
 
 /* Global state */
+global.database = Database.createConnection()
 global.gameLibrary = new GameLibrary()
 global.playerLibrary = new PlayerLibrary()
 

@@ -1,19 +1,21 @@
+import AsyncHandler from '../utils/AsyncHandler'
 
-import express, {Response} from 'express'
+import express, { Response } from 'express'
 const router = express.Router()
 
-router.post('/', (req, res: Response, next) => {
+router.post('/', AsyncHandler(async(req, res: Response, next) => {
 	const username = req.body['username']
 	const password = req.body['password']
+
 	if (!username || !password) { throw 'Missing username or password' }
 
 	const playerLibrary = global.playerLibrary
-	const player = playerLibrary.getPlayerByUsername(username, password)
+	const player = await playerLibrary.getPlayerByUsername(username)
 	if (player) { throw 'User already exists' }
 
-	playerLibrary.register(username, password)
-	res.json({ success: true })
-})
+	const success = await playerLibrary.register(username, password)
+	res.json({ success: success })
+}))
 
 router.use((err, req, res: Response, next) => {
 	res.status(400)

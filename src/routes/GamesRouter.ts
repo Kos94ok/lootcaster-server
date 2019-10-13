@@ -1,26 +1,20 @@
-
 import express, { Response } from 'express'
 const router = express.Router()
 
 import Game from '../game/Game'
 import GameMessage from '../model/GameMessage'
+import AsyncHandler from '../utils/AsyncHandler'
 
-router.use((req, res, next) => {
-	if (req.method === 'OPTIONS') {
-		next()
-		return
-	}
-
+router.use(AsyncHandler(async (req, res, next) => {
 	const token = req.cookies['playerToken']
-	console.log(token)
 	if (!token) { throw 'Missing token' }
 
-	const player = global.playerLibrary.getPlayerByToken(token)
+	const player = await global.playerLibrary.getPlayerByJwtToken(token)
 	if (!player) { throw 'Token invalid' }
 
 	req['player'] = player
 	next()
-})
+}))
 
 router.get('/', (req, res: Response, next) => {
 	const library = global.gameLibrary
