@@ -1,4 +1,5 @@
 import AsyncHandler from '../utils/AsyncHandler'
+import SendErrorAsBadRequestMiddleware from '../middleware/SendErrorAsBadRequestMiddleware'
 
 import express, { Response } from 'express'
 const router = express.Router()
@@ -17,9 +18,6 @@ router.post('/', AsyncHandler(async(req, res: Response, next) => {
 	res.json({ success: success })
 }))
 
-router.use((err, req, res: Response, next) => {
-	res.status(400)
-	res.json({ error: err })
-})
+router.use(SendErrorAsBadRequestMiddleware)
 
 module.exports = router

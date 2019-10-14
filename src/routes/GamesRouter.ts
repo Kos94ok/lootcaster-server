@@ -1,20 +1,11 @@
 import express, { Response } from 'express'
 const router = express.Router()
 
-import Game from '../game/Game'
-import GameMessage from '../model/GameMessage'
-import AsyncHandler from '../utils/AsyncHandler'
+import GameMessage from '../models/GameMessage'
+import RequirePlayerTokenMiddleware from '../middleware/RequirePlayerTokenMiddleware'
+import SendErrorAsBadRequestMiddleware from '../middleware/SendErrorAsBadRequestMiddleware'
 
-router.use(AsyncHandler(async (req, res, next) => {
-	const token = req.cookies['playerToken']
-	if (!token) { throw 'Missing token' }
-
-	const player = await global.playerLibrary.getPlayerByJwtToken(token)
-	if (!player) { throw 'Token invalid' }
-
-	req['player'] = player
-	next()
-}))
+router.use(RequirePlayerTokenMiddleware)
 
 router.get('/', (req, res: Response, next) => {
 	const library = global.gameLibrary
@@ -38,9 +29,6 @@ router.delete('/:gameId', (req, res: Response, next) => {
 	res.json({ success: true })
 })
 
-router.use((err, req, res: Response, next) => {
-	res.status(400)
-	res.json({ error: err })
-})
+router.use(SendErrorAsBadRequestMiddleware)
 
 module.exports = router

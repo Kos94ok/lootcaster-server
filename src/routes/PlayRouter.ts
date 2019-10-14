@@ -10,7 +10,7 @@ router.ws('/:gameId', async (ws, req) => {
 	const currentGame: Game = global.gameLibrary.games.find(game => game.id === req.params.gameId)
 	const currentPlayer: Player = await global.playerLibrary.getPlayerByJwtToken(req.cookies['playerToken'])
 	if (!currentGame || !currentPlayer) {
-		ws.send(JSON.stringify({ error: 'Invalid game ID or player token' }))
+		ws.send(JSON.stringify({ type: 'error/generic', data: 'Invalid game ID or player token' }))
 		ws.close()
 		return
 	}
@@ -22,7 +22,7 @@ router.ws('/:gameId', async (ws, req) => {
 		const msg = JSON.parse(rawMsg)
 		const handler = IncomingMessageHandlers[msg.type]
 		if (!handler) {
-			ws.send(JSON.stringify({ error: 'Invalid type' }))
+			ws.send(JSON.stringify({ type: 'error/generic', data: 'Invalid type' }))
 			return
 		}
 

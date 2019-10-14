@@ -37,7 +37,7 @@ export default class Game {
 		this.players.forEach((player) => OutgoingMessageHandlers.notifyAboutChatEntry(player, chatEntry))
 	}
 
-	static newPublicInstance(): Game {
+	static newServerInstance(): Game {
 		return new Game(null)
 	}
 

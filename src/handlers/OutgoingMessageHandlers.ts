@@ -1,8 +1,8 @@
 import Game from '../game/Game'
 import Player from '../database/Player'
 import ChatEntry from '../game/ChatEntry'
-import ChatEntryMessage from '../model/ChatEntryMessage'
-import PublicPlayerMessage from '../model/PublicPlayerMessage'
+import ChatEntryMessage from '../models/ChatEntryMessage'
+import PublicPlayerMessage from '../models/PublicPlayerMessage'
 
 export default {
 	sendAllChatHistory: (player: Player, game: Game) => {
@@ -39,6 +39,13 @@ export default {
 		player.sendMessage({
 			type: 'update/playerDisconnected',
 			data: PublicPlayerMessage.fromPlayer(disconnectedPlayer)
+		})
+	},
+
+	notifyAboutGameShutdown(player: Player) {
+		player.sendMessage({
+			type: 'command/disconnect',
+			data: { reason: 'Game shutdown' }
 		})
 	}
 }
