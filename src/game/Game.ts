@@ -6,12 +6,14 @@ import OutgoingMessageHandlers from '../handlers/OutgoingMessageHandlers'
 
 export default class Game {
 	id: string
+	name: string
 	owner: Player
 	players: Player[]
 	chatHistory: ChatEntry[]
 
-	constructor(owner: Player) {
+	constructor(owner: Player, name: string) {
 		this.id = uuidv4()
+		this.name = name
 		this.owner = owner
 		this.players = []
 		this.chatHistory = []
@@ -38,10 +40,10 @@ export default class Game {
 	}
 
 	static newServerInstance(): Game {
-		return new Game(null)
+		return new Game(null, 'Unnamed public game')
 	}
 
-	static newOwnedInstance(owner: Player): Game {
-		return new Game(owner)
+	static newOwnedInstance(owner: Player, name: string): Game {
+		return new Game(owner, name)
 	}
 }

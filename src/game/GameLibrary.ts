@@ -10,8 +10,8 @@ export default class GameLibrary {
 		this.games = []
 	}
 
-	public createOwnedGame(owner: Player): Game {
-		const game = Game.newOwnedInstance(owner)
+	public createOwnedGame(owner: Player, name: string): Game {
+		const game = Game.newOwnedInstance(owner, name)
 		this.games.push(game)
 		return game
 	}

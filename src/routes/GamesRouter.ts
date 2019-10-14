@@ -14,11 +14,12 @@ router.get('/', (req, res: Response, next) => {
 	res.json({ data: gameMessages })
 })
 
-router.put('/', (req, res: Response, next) => {
+router.post('/', (req, res: Response, next) => {
 	const player = req['player']
 	const gameLibrary = global.gameLibrary
+	const gameName = req.body['name']
 
-	const game = gameLibrary.createOwnedGame(player)
+	const game = gameLibrary.createOwnedGame(player, gameName)
 	res.json({ data: GameMessage.fromGame(game) })
 })
 

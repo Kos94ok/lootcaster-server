@@ -13,5 +13,9 @@ export default {
 
 	'post/chat': (data: string, game: Game, player: Player) => {
 		game.createChatEntry(player, data)
+	},
+
+	'system/keepalive': (data: string, game: Game, player: Player) => {
+		// No action needed
 	}
 }
