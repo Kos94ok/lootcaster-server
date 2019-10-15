@@ -6,20 +6,20 @@ import express, { Request, Response } from 'express'
 import expressWs from 'express-ws'
 
 import Database from './database/Database'
-import GameLibrary from './game/GameLibrary'
-import PlayerLibrary from './database/PlayerLibrary'
+import GameLibrary from './libraries/game/GameLibrary'
+import PlayerLibrary from './libraries/players/PlayerLibrary'
 
 const app = express()
 expressWs(app)
 
 /* Routers must be imported after express-ws is initialized, therefore 'require' syntax */
-const PlayRouter = require('./routes/PlayRouter')
-const IndexRouter = require('./routes/IndexRouter')
-const LoginRouter = require('./routes/LoginRouter')
-const GamesRouter = require('./routes/GamesRouter')
-const LogoutRouter = require('./routes/LogoutRouter')
-const ProfileRouter = require('./routes/ProfileRouter')
-const RegisterRouter = require('./routes/RegisterRouter')
+const PlayRouter = require('./routers/PlayRouter')
+const IndexRouter = require('./routers/IndexRouter')
+const LoginRouter = require('./routers/LoginRouter')
+const GamesRouter = require('./routers/GamesRouter')
+const LogoutRouter = require('./routers/LogoutRouter')
+const ProfileRouter = require('./routers/ProfileRouter')
+const RegisterRouter = require('./routers/RegisterRouter')
 
 /* Templating engine */
 app.set('views', path.join(__dirname, 'views'))
@@ -73,8 +73,8 @@ app.use((err, req, res, next) => {
 })
 
 /* Global state */
-const database = Database.createConnection()
+Database.init()
 global.gameLibrary = new GameLibrary()
-global.playerLibrary = new PlayerLibrary(database)
+global.playerLibrary = new PlayerLibrary()
 
 app.listen((process.env.PORT || 3000))

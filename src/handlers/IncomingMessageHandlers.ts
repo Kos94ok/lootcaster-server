@@ -1,5 +1,5 @@
-import Game from '../game/Game'
-import Player from '../database/Player'
+import Game from '../libraries/game/Game'
+import Player from '../libraries/players/Player'
 import OutgoingMessageHandlers from './OutgoingMessageHandlers'
 
 export default {

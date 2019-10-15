@@ -1,7 +1,7 @@
 
 import Game from './Game'
-import Player from '../database/Player'
-import OutgoingMessageHandlers from '../handlers/OutgoingMessageHandlers'
+import Player from '../players/Player'
+import OutgoingMessageHandlers from '../../handlers/OutgoingMessageHandlers'
 
 export default class GameLibrary {
 	games: Array<Game>

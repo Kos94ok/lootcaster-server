@@ -1,7 +1,7 @@
 
 import express from 'express'
-import Game from '../game/Game'
-import Player from '../database/Player'
+import Game from '../libraries/game/Game'
+import Player from '../libraries/players/Player'
 import IncomingMessageHandlers from '../handlers/IncomingMessageHandlers'
 
 const router = express.Router()

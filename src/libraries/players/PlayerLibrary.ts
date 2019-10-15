@@ -1,31 +1,30 @@
 import Player from './Player'
-import Database from './Database'
-import HashManager from './HashManager'
-import TokenManager from './TokenManager'
-import { JwtTokenScope } from '../enums/JwtTokenScope'
+import Database from '../../database/Database'
+import PlayerDatabase from '../../database/PlayerDatabase'
+import HashManager from '../../services/HashService'
+import TokenManager from '../../services/TokenService'
+import { JwtTokenScope } from '../../enums/JwtTokenScope'
 
 export default class PlayerLibrary {
 	players: Array<Player>
-	database: Database
 
-	constructor(database: Database) {
+	constructor() {
 		this.players = []
-		this.database = database
 	}
 
 	async register(username: string, password: string): Promise<boolean> {
 		const passwordHash = await HashManager.hashPassword(password)
-		return this.database.insertPlayer(username, passwordHash)
+		return PlayerDatabase.insertPlayer(username, passwordHash)
 	}
 
 	async login(username: string, password: string): Promise<Player> {
-		const playerDatabaseEntry = await this.database.selectPlayerByUsername(username)
+		const playerDatabaseEntry = await PlayerDatabase.selectPlayerByUsername(username)
 
 		if (!playerDatabaseEntry) {
 			return null
 		}
 
-		const passwordsMatch = await HashManager.passwordsMatch(password, playerDatabaseEntry.passwordhash)
+		const passwordsMatch = await HashManager.passwordsMatch(password, playerDatabaseEntry.passwordHash)
 		if (!passwordsMatch) {
 			return null
 		}
@@ -38,7 +37,7 @@ export default class PlayerLibrary {
 	async getPlayerById(playerId: string): Promise<Player> {
 		let player = this.players.find(player => player.id === playerId)
 		if (!player) {
-			const playerDatabaseEntry = await this.database.selectPlayerById(playerId)
+			const playerDatabaseEntry = await PlayerDatabase.selectPlayerById(playerId)
 			if (!playerDatabaseEntry) {
 				return null
 			}
@@ -51,7 +50,7 @@ export default class PlayerLibrary {
 	async getPlayerByUsername(username: string): Promise<Player> {
 		let player = this.players.find(player => player.username === username)
 		if (!player) {
-			const playerDatabaseEntry = await this.database.selectPlayerByUsername(username)
+			const playerDatabaseEntry = await PlayerDatabase.selectPlayerByUsername(username)
 			if (!playerDatabaseEntry) {
 				return null
 			}

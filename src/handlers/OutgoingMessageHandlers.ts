@@ -1,8 +1,8 @@
-import Game from '../game/Game'
-import Player from '../database/Player'
-import ChatEntry from '../game/ChatEntry'
-import ChatEntryMessage from '../models/ChatEntryMessage'
-import PublicPlayerMessage from '../models/PublicPlayerMessage'
+import Game from '../libraries/game/Game'
+import Player from '../libraries/players/Player'
+import ChatEntry from '../models/ChatEntry'
+import ChatEntryMessage from '../models/messages/ChatEntryMessage'
+import PublicPlayerMessage from '../models/messages/PublicPlayerMessage'
 
 export default {
 	sendAllChatHistory: (player: Player, game: Game) => {

@@ -1,8 +1,8 @@
 
 import uuidv4 from 'uuid/v4'
-import ChatEntry from './ChatEntry'
-import Player from '../database/Player'
-import OutgoingMessageHandlers from '../handlers/OutgoingMessageHandlers'
+import ChatEntry from '../../models/ChatEntry'
+import Player from '../players/Player'
+import OutgoingMessageHandlers from '../../handlers/OutgoingMessageHandlers'
 
 export default class Game {
 	id: string
@@ -44,6 +44,8 @@ export default class Game {
 	}
 
 	static newOwnedInstance(owner: Player, name: string): Game {
+		const randomNumber = Math.floor(1000 + Math.random() * 9000)
+		name = name || (owner.username + `'s game #${randomNumber}`)
 		return new Game(owner, name)
 	}
 }

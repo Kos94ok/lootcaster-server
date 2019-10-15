@@ -1,4 +1,4 @@
-import Player from './Player'
+import Player from '../libraries/players/Player'
 import jwt from 'jsonwebtoken'
 import { JwtTokenScope } from '../enums/JwtTokenScope'
 

@@ -1,6 +1,5 @@
-
 import uuidv4 from 'uuid/v4'
-import Player from '../database/Player'
+import Player from '../libraries/players/Player'
 
 export default class ChatEntry {
 	id: string

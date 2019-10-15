@@ -1,7 +1,7 @@
 import express, { Response } from 'express'
 const router = express.Router()
 
-import GameMessage from '../models/GameMessage'
+import GameMessage from '../models/messages/GameMessage'
 import RequirePlayerTokenMiddleware from '../middleware/RequirePlayerTokenMiddleware'
 import SendErrorAsBadRequestMiddleware from '../middleware/SendErrorAsBadRequestMiddleware'
 
@@ -16,10 +16,10 @@ router.get('/', (req, res: Response, next) => {
 
 router.post('/', (req, res: Response, next) => {
 	const player = req['player']
+	const gameName = req.body['name'] || ''
 	const gameLibrary = global.gameLibrary
-	const gameName = req.body['name']
 
-	const game = gameLibrary.createOwnedGame(player, gameName)
+	const game = gameLibrary.createOwnedGame(player, gameName.trim())
 	res.json({ data: GameMessage.fromGame(game) })
 })
 

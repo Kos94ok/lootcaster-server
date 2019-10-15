@@ -1,7 +1,7 @@
 import express, { Response } from 'express'
 const router = express.Router()
 
-import PlayerMessage from '../models/PlayerMessage'
+import PlayerMessage from '../models/messages/PlayerMessage'
 import RequirePlayerTokenMiddleware from '../middleware/RequirePlayerTokenMiddleware'
 import SendErrorAsBadRequestMiddleware from '../middleware/SendErrorAsBadRequestMiddleware'
 

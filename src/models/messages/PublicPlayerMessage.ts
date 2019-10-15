@@ -1,5 +1,5 @@
 
-import Player from '../database/Player'
+import Player from '../../libraries/players/Player'
 
 export default class PublicPlayerMessage {
 	id: string

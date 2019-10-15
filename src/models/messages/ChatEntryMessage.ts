@@ -1,4 +1,4 @@
-import ChatEntry from '../game/ChatEntry'
+import ChatEntry from '../ChatEntry'
 import PlayerMessage from './PlayerMessage'
 
 export default class ChatEntryMessage {

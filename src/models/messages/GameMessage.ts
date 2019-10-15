@@ -1,5 +1,5 @@
 
-import Game from '../game/Game'
+import Game from '../../libraries/game/Game'
 
 export default class GameMessage {
 	id: string
