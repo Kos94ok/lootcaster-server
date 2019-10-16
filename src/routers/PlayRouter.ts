@@ -1,6 +1,6 @@
-
 import express from 'express'
 import Game from '../libraries/game/Game'
+import Entity from '../libraries/game/Entity'
 import Player from '../libraries/players/Player'
 import IncomingMessageHandlers from '../handlers/IncomingMessageHandlers'
 
@@ -15,8 +15,14 @@ router.ws('/:gameId', async (ws, req) => {
 		return
 	}
 
+	currentPlayer.disconnect()
+
 	currentGame.addPlayer(currentPlayer)
 	currentPlayer.registerConnection(ws)
+
+	const heroEntity = Entity.newInstance(currentPlayer, 'hero')
+	heroEntity.moveTo({ x: Math.random() * 256, y: Math.random() * 256 })
+	currentGame.entities.create(heroEntity)
 
 	ws.on('message', (rawMsg: string) => {
 		const msg = JSON.parse(rawMsg)

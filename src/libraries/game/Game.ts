@@ -1,7 +1,7 @@
-
 import uuidv4 from 'uuid/v4'
-import ChatEntry from '../../models/ChatEntry'
 import Player from '../players/Player'
+import GameEntities from './GameEntities'
+import ChatEntry from '../../models/ChatEntry'
 import OutgoingMessageHandlers from '../../handlers/OutgoingMessageHandlers'
 
 export default class Game {
@@ -9,6 +9,7 @@ export default class Game {
 	name: string
 	owner: Player
 	players: Player[]
+	entities: GameEntities
 	chatHistory: ChatEntry[]
 
 	constructor(owner: Player, name: string) {
@@ -16,20 +17,22 @@ export default class Game {
 		this.name = name
 		this.owner = owner
 		this.players = []
+		this.entities = new GameEntities(this)
 		this.chatHistory = []
 	}
 
 	addPlayer(targetPlayer: Player): void {
-		if (this.players.includes(targetPlayer)) { return }
-
 		this.players.forEach((player) => OutgoingMessageHandlers.notifyAboutPlayerConnected(player, targetPlayer))
 		this.players.push(targetPlayer)
 	}
-
 	removePlayer(targetPlayer: Player): void {
-		if (!this.players.includes(targetPlayer)) { return }
+		const registeredPlayer = this.players.find(player => player.id === targetPlayer.id)
+		if (!registeredPlayer) {
+			return
+		}
 
-		this.players.splice(this.players.indexOf(targetPlayer), 1)
+		this.entities.destroyByOwner(targetPlayer)
+		this.players.splice(this.players.indexOf(registeredPlayer), 1)
 		this.players.forEach((player) => OutgoingMessageHandlers.notifyAboutPlayerDisconnected(player, targetPlayer))
 	}
 
@@ -37,10 +40,6 @@ export default class Game {
 		const chatEntry = ChatEntry.newInstance(sender, message)
 		this.chatHistory.push(chatEntry)
 		this.players.forEach((player) => OutgoingMessageHandlers.notifyAboutChatEntry(player, chatEntry))
-	}
-
-	static newServerInstance(): Game {
-		return new Game(null, 'Unnamed public game')
 	}
 
 	static newOwnedInstance(owner: Player, name: string): Game {
